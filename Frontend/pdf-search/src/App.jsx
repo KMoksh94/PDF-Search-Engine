@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <>
-    {isOpen && <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={"Error"}>
+    {isOpen && <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={"Error"}>
       <p className="text-red-500">{errorMsg}</p>
     </Modal>}
     <main className='container mx-auto px-4 min-h-screen bg-gray-50 text-gray-800 font-sans'>
