@@ -4,10 +4,10 @@ const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 
-const PORT = process.env.PORT || 3000; 
+const PORT = process.env.PORT || 3000;
 dotenv.config();
 
-const uploadsDir = path.join(__dirname, 'uploads');
+const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
@@ -15,16 +15,18 @@ if (!fs.existsSync(uploadsDir)) {
 const connectionDB = require("./database/connectionDB");
 const { startCleanupRoutine } = require("./utilities/cleanup");
 const Chunks = require("./models/chunks");
-const app = express()
+const app = express();
 connectionDB();
 
 startCleanupRoutine();
 
-app.use(express.json())
+app.use(express.json());
 app.use(cors());
-app.use("/pdf",require("./routes/pdf"))
-app.use("/health", async(req,res)=>{
-  const chunksCount = await Chunks.countDocuments()
-  return res.status(200).json({message:`Server is running!`, chunksCount})
-})
-app.listen(PORT,()=>{console.log(`Server is running at ${PORT}`)})
+app.use("/pdf", require("./routes/pdf"));
+app.use("/health", async (req, res) => {
+  const chunksCount = await Chunks.countDocuments();
+  return res.status(200).json({ message: `Server is running!`, chunksCount });
+});
+app.listen(PORT, () => {
+  console.log(`Server is running at ${PORT}`);
+});
